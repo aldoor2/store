@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { GetStaticProps } from "next";
 import { Button, Flex, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import { Price, Product } from "product/types";
 import api from "product/api";
-import Link from "next/link";
 
 interface Props {
   products: Product[];
@@ -101,6 +101,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const products = await api.list();
 
   return {
+    revalidate: 10,
     props: {
       products,
     },
