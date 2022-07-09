@@ -64,7 +64,6 @@ const IndexPage: React.FC<Props> = ({ products }) => {
               spacing={3}
             >
               <Image
-                alt={product.title}
                 borderTopRadius="md"
                 maxHeight={128}
                 objectFit="cover"
