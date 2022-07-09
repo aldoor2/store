@@ -117,7 +117,13 @@ const IndexPage: React.FC<Props> = ({ products }) => {
                   text
                 )}`}
               >
-                <Button colorScheme="whatsapp" width="fit-content">
+                <Button
+                  colorScheme="whatsapp"
+                  leftIcon={
+                    <Image src="https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff" />
+                  }
+                  width="fit-content"
+                >
                   Completar pedido ({cart.length}) productos
                 </Button>
               </Link>
