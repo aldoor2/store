@@ -1,6 +1,14 @@
 import React, { useMemo, useState } from "react";
 import { GetStaticProps } from "next";
-import { Button, Flex, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { Price, Product } from "product/types";
 import api from "product/api";
@@ -55,6 +63,12 @@ const IndexPage: React.FC<Props> = ({ products }) => {
               padding={4}
               spacing={3}
             >
+              <Image
+                borderTopRadius="md"
+                maxHeight={128}
+                objectFit="cover"
+                src={product.image}
+              />
               <Stack spacing={1}>
                 <Text color="teal" fontSize="xl" fontWeight="700">
                   {product.title}
