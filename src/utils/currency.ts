@@ -1,4 +1,4 @@
-import { Price } from "product/types";
+import { Price } from "@/product/types";
 
 export const parseCurrency = ({
   price,

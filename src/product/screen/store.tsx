@@ -1,18 +1,20 @@
-import React, { useMemo, useState } from "react";
+import * as React from "react";
 import { Button, Flex, Grid, Image, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { Product } from "product/types";
-import { parseCurrency } from "utils/currency";
+
+import { parseCurrency } from "@/utils/currency";
+import { Product } from "@/product/types";
+import ProductCard from "@/product/components/ProductCard";
 
 interface Props {
   products: Product[];
 }
 
 const StoreScreen: React.FC<Props> = ({ products }) => {
-  const [cart, setCart] = useState<Product[]>([]);
-  const [selectedImage, setSelectedImage] = useState<string>(null);
-  const text = useMemo(
+  const [cart, setCart] = React.useState<Product[]>([]);
+  const [selectedImage, setSelectedImage] = React.useState<string>(null);
+  const text = React.useMemo(
     () =>
       cart
         .reduce(
@@ -44,42 +46,12 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
             templateColumns="repeat(auto-fill, minmax(240px, 1fr))"
           >
             {products.map((product) => (
-              <Stack
+              <ProductCard
                 key={product.id}
-                backgroundColor="gray.100"
-                borderRadius="md"
-                data-testid="product"
-                padding={4}
-                spacing={3}
-              >
-                <Image
-                  alt={product.title}
-                  as={motion.img}
-                  borderTopRadius="md"
-                  cursor="pointer"
-                  layoutId={product.image}
-                  maxHeight={128}
-                  objectFit="cover"
-                  src={product.image}
-                  onClick={() => setSelectedImage(product.image)}
-                />
-                <Stack spacing={1}>
-                  <Text color="teal" fontSize="xl" fontWeight="700">
-                    {product.title}
-                  </Text>
-                  <Text color="green.500" fontSize="lg" fontWeight="500">
-                    {parseCurrency({ price: product.price })}
-                  </Text>
-                </Stack>
-                <Button
-                  colorScheme="primary"
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleAddCart(product)}
-                >
-                  Agregar
-                </Button>
-              </Stack>
+                product={product}
+                onAdd={(product) => handleAddCart(product)}
+                onSelectImage={(productImage) => setSelectedImage(productImage)}
+              />
             ))}
           </Grid>
         ) : (

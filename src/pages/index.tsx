@@ -1,8 +1,9 @@
-import React from "react";
+import * as React from "react";
 import { GetStaticProps } from "next";
-import { Product } from "product/types";
-import api from "product/api";
-import StoreScreen from "product/screen/store";
+
+import { Product } from "@/product/types";
+import api from "@/product/api";
+import StoreScreen from "@/product/screen/store";
 
 interface Props {
   products: Product[];
