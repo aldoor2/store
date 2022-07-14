@@ -2,8 +2,8 @@ import * as React from "react";
 import { Button, Image, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import { parseCurrency } from "@/utils/currency";
-import { Product } from "@/product/types";
+import { parseCurrency } from "@/Utils/currency";
+import { Product } from "@/Product/types";
 
 interface Props {
   product: Product;

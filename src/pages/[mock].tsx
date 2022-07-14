@@ -2,9 +2,10 @@ import { ParsedUrlQuery } from "querystring";
 
 import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Product } from "product/types";
-import api from "product/api";
-import StoreScreen from "product/screen/store";
+
+import { Product } from "@/Product/types";
+import api from "@/Product/api";
+import StoreScreen from "@/Product/screen/Store";
 
 interface Props {
   products: Product[];

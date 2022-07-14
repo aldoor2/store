@@ -3,9 +3,9 @@ import { Button, Flex, Grid, Image, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 
-import { parseCurrency } from "@/utils/currency";
-import { Product } from "@/product/types";
-import ProductCard from "@/product/components/ProductCard";
+import { parseCurrency } from "@/Utils/currency";
+import { Product } from "@/Product/types";
+import ProductCard from "@/Product/components/ProductCard";
 
 interface Props {
   products: Product[];

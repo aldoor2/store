@@ -20,7 +20,9 @@
     "jsx": "preserve",
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"]
+      "@/Pages/*": ["pages/*"],
+      "@/Utils/*": ["utils/*"],
+      "@/Product/*": ["product/*"]
     }
   },
   "include": [

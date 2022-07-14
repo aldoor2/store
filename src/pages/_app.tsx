@@ -10,7 +10,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { AppProps } from "next/app";
-import theme from "theme";
+
+import theme from "@/theme";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -25,7 +26,11 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
           padding={4}
         >
           <VStack marginBottom={6}>
-            <Image borderRadius={9999} src="https://place-hold.it/128x128" />
+            <Image
+              alt="banner"
+              borderRadius={9999}
+              src="https://place-hold.it/128x128"
+            />
             <Heading>Almacency</Heading>
             <Text>
               {
