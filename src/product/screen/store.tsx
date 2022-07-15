@@ -79,7 +79,10 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
                 <Button
                   colorScheme="whatsapp"
                   leftIcon={
-                    <Image src="https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff" />
+                    <Image
+                      alt="icon"
+                      src="https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff"
+                    />
                   }
                   width="fit-content"
                 >
@@ -106,7 +109,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
             width="100%"
             onClick={() => setSelectedImage(null)}
           >
-            <Image key="image" src={selectedImage} />
+            <Image key="image" alt="image" src={selectedImage} />
           </Flex>
         )}
       </AnimatePresence>
