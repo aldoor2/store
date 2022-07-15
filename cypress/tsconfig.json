@@ -20,6 +20,6 @@
     "types": ["cypress"]
   },
   "include": [
-    "./"
-  ],
+    "**/*.ts",
+  ]
 }

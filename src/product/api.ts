@@ -3,7 +3,7 @@ import Papa from "papaparse";
 
 import { Product } from "./types";
 
-export default {
+const apiProducts = {
   list: async (): Promise<Product[]> => {
     return axios
       .get(
@@ -37,3 +37,5 @@ export default {
       import(`./mocks/${mock}.json`).then((result) => result.default),
   },
 };
+
+export default apiProducts;

@@ -20,6 +20,7 @@
     "jsx": "preserve",
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["./*"],
       "@/Pages/*": ["pages/*"],
       "@/Utils/*": ["utils/*"],
       "@/Product/*": ["product/*"]
@@ -28,7 +29,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "./jest.setup.ts",
   ],
   "exclude": [
     "node_modules",
