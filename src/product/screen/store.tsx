@@ -62,6 +62,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               >
                 <Button
                   colorScheme="whatsapp"
+                  data-testid="show-cart"
                   size="lg"
                   width={{ base: "100%", sm: "fit-content" }}
                   onClick={() => toggleCart(true)}
