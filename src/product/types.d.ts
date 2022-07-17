@@ -14,3 +14,7 @@ export type Price = {
   locale?: string;
   currency?: Currency;
 };
+
+export interface CartItem extends Product {
+  quantity: number;
+}

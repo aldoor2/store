@@ -14,30 +14,37 @@ interface Props {
 const ProductCard: React.FC<Props> = ({ product, onAdd, onSelectImage }) => {
   return (
     <Stack
-      backgroundColor="gray.100"
+      borderColor="gray.100"
       borderRadius="md"
+      borderWidth={1}
+      boxShadow="md"
       data-testid="product"
       padding={4}
       spacing={3}
     >
-      <Image
-        alt={product.title}
-        as={motion.img}
-        borderTopRadius="md"
-        cursor="pointer"
-        layoutId={product.image}
-        maxHeight={128}
-        objectFit="cover"
-        src={product.image}
-        onClick={() => onSelectImage(product.image)}
-      />
-      <Stack spacing={1}>
-        <Text color="teal" fontSize="xl" fontWeight="700">
-          {product.title}
-        </Text>
-        <Text color="green.500" fontSize="lg" fontWeight="500">
-          {parseCurrency({ price: product.price })}
-        </Text>
+      <Stack direction="row">
+        <Image
+          alt={product.title}
+          as={motion.img}
+          backgroundColor="white"
+          borderRadius="md"
+          cursor="pointer"
+          height={16}
+          layoutId={product.image}
+          loading="lazy"
+          objectFit="contain"
+          src={product.image}
+          width={16}
+          onClick={() => onSelectImage(product.image)}
+        />
+        <Stack spacing={1}>
+          <Text color="teal" fontSize="xl" fontWeight="700">
+            {product.title}
+          </Text>
+          <Text color="green.500" fontSize="lg" fontWeight="500">
+            {parseCurrency({ price: product.price })}
+          </Text>
+        </Stack>
       </Stack>
       <Button
         colorScheme="primary"
