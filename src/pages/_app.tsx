@@ -37,7 +37,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
           padding={4}
         >
           <Stack spacing={8}>
-            <Stack marginBottom={4} spacing={0}>
+            <Stack marginBottom={4} spacing={4}>
               <Image
                 alt="banner"
                 borderRadius="lg"
@@ -53,7 +53,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <Box
                   backgroundColor="white"
                   borderRadius={9999}
-                  marginTop={-8}
+                  marginTop={{ base: -12, sm: -16 }}
                   minWidth={{ base: 24, sm: 32 }}
                   padding={1}
                 >

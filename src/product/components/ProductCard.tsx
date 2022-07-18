@@ -22,6 +22,18 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
       spacing={3}
     >
       <Stack direction="row" padding={4} width="100%">
+        <Image
+          alt={product.title}
+          backgroundColor="white"
+          borderRadius="md"
+          cursor="pointer"
+          height={{ base: 24, sm: 36 }}
+          loading="lazy"
+          minWidth={{ base: 24, sm: 36 }}
+          objectFit="contain"
+          src={product.image}
+          width={{ base: 24, sm: 36 }}
+        />
         <Stack justifyContent="space-between" spacing={1} width="100%">
           <Stack spacing={1}>
             <Text fontWeight="500">{product.title}</Text>
@@ -43,18 +55,6 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
           </Stack>
         </Stack>
       </Stack>
-      <Image
-        alt={product.title}
-        backgroundColor="white"
-        borderRadius="md"
-        cursor="pointer"
-        height={{ base: 24, sm: 36 }}
-        loading="lazy"
-        minWidth={{ base: 24, sm: 36 }}
-        objectFit="contain"
-        src={product.image}
-        width={{ base: 24, sm: 36 }}
-      />
     </Stack>
   );
 };
