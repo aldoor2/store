@@ -13,6 +13,7 @@ const customConfig = {
   coverageDirectory: ".coverage",
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
+    "^@/App/(.*)$": "<rootDir>/src/app/$1",
     "^@/Pages/(.*)$": "<rootDir>/src/pages/$1",
     "^@/Utils/(.*)$": "<rootDir>/src/utils/$1",
     "^@/Product/(.*)$": "<rootDir>/src/product/$1",

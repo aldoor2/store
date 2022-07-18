@@ -3,15 +3,14 @@ import Papa from "papaparse";
 
 import { Product } from "./types";
 
+import { INFORMATION } from "@/App/constants";
+
 const apiProducts = {
   list: async (): Promise<Product[]> => {
     return axios
-      .get(
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vThDpi0HoxEO77NELrovO_GD0QDtWEztCi3LoIRvDFCDZAirKvT6hX_ysNewYC05iCsqdpG3FoliYhK/pub?output=csv",
-        {
-          responseType: "blob",
-        }
-      )
+      .get(INFORMATION.sheet, {
+        responseType: "blob",
+      })
       .then(
         (response) =>
           new Promise<Product[]>((resolve, reject) => {

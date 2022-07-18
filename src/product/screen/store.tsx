@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Button, Flex, Grid, Image, Stack, Text } from "@chakra-ui/react";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { Button, Flex, Grid, Stack, Text } from "@chakra-ui/react";
 
 import { CartItem, Product } from "@/Product/types";
 import ProductCard from "@/Product/components/ProductCard";
 import CartDrawer from "@/Product/components/CartDrawer";
 import { editCart } from "@/Product/selectors";
+import { parseCurrency } from "@/Utils/currency";
 
 interface Props {
   products: Product[];
@@ -13,8 +13,22 @@ interface Props {
 
 const StoreScreen: React.FC<Props> = ({ products }) => {
   const [cart, setCart] = React.useState<CartItem[]>([]);
-  const [selectedImage, setSelectedImage] = React.useState<string>(null);
   const [isCartOpen, toggleCart] = React.useState<boolean>(false);
+
+  const total = React.useMemo(
+    () =>
+      parseCurrency({
+        price: cart.reduce(
+          (total, product) => total + product.price * product.quantity,
+          0
+        ),
+      }),
+    [cart]
+  );
+  const quantity = React.useMemo(
+    () => cart.reduce((acc, item) => acc + item.quantity, 0),
+    [cart]
+  );
 
   function handleEditCart(
     product: Product,
@@ -25,77 +39,68 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
 
   return (
     <>
-      <LayoutGroup>
-        <Stack borderRadius="md" padding={6}>
-          {products.length ? (
-            <Grid
-              gridGap={6}
-              templateColumns="repeat(auto-fill, minmax(240px, 1fr))"
+      <Stack spacing={6}>
+        {products.length ? (
+          <Grid
+            gridGap={8}
+            templateColumns={{
+              base: "repeat(auto-fill, minmax(240px, 1fr))",
+              sm: "repeat(auto-fill, minmax(360px, 1fr))",
+            }}
+          >
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAdd={(_product) => handleEditCart(_product, "increment")}
+              />
+            ))}
+          </Grid>
+        ) : (
+          <Text color="gray.500" fontSize="lg" margin="auto">
+            No hay productos
+          </Text>
+        )}
+        {Boolean(cart.length) && (
+          <Flex
+            alignItems="center"
+            bottom={4}
+            justifyContent="center"
+            position="sticky"
+          >
+            <Button
+              boxShadow="xl"
+              colorScheme="primary"
+              data-testid="show-cart"
+              size="lg"
+              width={{ base: "100%", sm: "fit-content" }}
+              onClick={() => toggleCart(true)}
             >
-              {products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAdd={(_product) => handleEditCart(_product, "increment")}
-                  onSelectImage={(productImage) =>
-                    setSelectedImage(productImage)
-                  }
-                />
-              ))}
-            </Grid>
-          ) : (
-            <Text color="gray.500" fontSize="lg" margin="auto">
-              No hay productos
-            </Text>
-          )}
-          <AnimatePresence>
-            {Boolean(cart.length) && (
-              <Flex
-                alignItems="center"
-                animate={{ scale: 1 }}
-                as={motion.div}
-                bottom={4}
-                exit={{ scale: 0 }}
-                initial={{ scale: 0 }}
-                justifyContent="center"
-                position="sticky"
-              >
-                <Button
-                  colorScheme="whatsapp"
-                  data-testid="show-cart"
-                  size="lg"
-                  width={{ base: "100%", sm: "fit-content" }}
-                  onClick={() => toggleCart(true)}
-                >
-                  Ver pedido (
-                  {cart.reduce((acc, item) => acc + item.quantity, 0)})
-                  productos
-                </Button>
-              </Flex>
-            )}
-          </AnimatePresence>
-        </Stack>
-        <AnimatePresence>
-          {selectedImage && (
-            <Flex
-              key="backdrop"
-              alignItems="center"
-              as={motion.div}
-              backgroundColor="rgba(0,0,0,0.5)"
-              height="100%"
-              justifyContent="center"
-              layoutId={selectedImage}
-              left={0}
-              position="fixed"
-              top={0}
-              width="100%"
-              onClick={() => setSelectedImage(null)}
-            >
-              <Image key="image" alt="image" src={selectedImage} />
-            </Flex>
-          )}
-        </AnimatePresence>
-      </LayoutGroup>
+              <Stack alignItems="center" direction="row" spacing={6}>
+                <Stack alignItems="center" direction="row" spacing={3}>
+                  <Text fontSize="md" lineHeight={6}>
+                    Ver pedido
+                  </Text>
+                  <Text
+                    backgroundColor="rgba(0,0,0,0.25)"
+                    borderRadius="sm"
+                    color="gray.100"
+                    fontSize="xs"
+                    fontWeight="500"
+                    paddingX={2}
+                    paddingY={1}
+                  >
+                    {quantity} items
+                  </Text>
+                </Stack>
+                <Text fontSize="md" lineHeight={6}>
+                  {total}
+                </Text>
+              </Stack>
+            </Button>
+          </Flex>
+        )}
+      </Stack>
       <CartDrawer
         isOpen={isCartOpen}
         items={cart}

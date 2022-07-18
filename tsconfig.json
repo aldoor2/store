@@ -20,10 +20,10 @@
     "jsx": "preserve",
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"],
+      "@/App/*": ["app/*"],
       "@/Pages/*": ["pages/*"],
-      "@/Utils/*": ["utils/*"],
-      "@/Product/*": ["product/*"]
+      "@/Product/*": ["product/*"],
+      "@/Utils/*": ["utils/*"]
     }
   },
   "include": [
