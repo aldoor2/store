@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 
 import { Product } from "@/Product/types";
 import api from "@/Product/api";
-import StoreScreen from "@/product/screen/store";
+import StoreScreen from "@/Product/screen/store";
 
 interface Props {
   products: Product[];
