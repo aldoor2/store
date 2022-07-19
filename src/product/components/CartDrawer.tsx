@@ -125,7 +125,9 @@ const CartDrawer: React.FC<Props> = ({
                         >
                           -
                         </Button>
-                        <Text fontWeight="500">{product.quantity}</Text>
+                        <Text data-testid="quantity" fontWeight="500">
+                          {product.quantity}
+                        </Text>
                         <Button
                           borderRadius={9999}
                           colorScheme="primary"

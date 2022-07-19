@@ -4,26 +4,77 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import CartDrawer from "@/Product/components/CartDrawer";
 import { CartItem } from "@/Product/types";
 
-const cart: CartItem[] = [
-  {
-    id: "id",
-    image: "image",
-    price: 100,
-    title: "title",
-    category: "category",
-    description: "description",
-    quantity: 1,
-  },
-];
+const product: CartItem = {
+  id: "id",
+  image: "image",
+  price: 100,
+  title: "title",
+  category: "category",
+  description: "description",
+  quantity: 2,
+};
 
 describe("CartDrawer", () => {
+  test("should show the quantity of products of an item", () => {
+    render(
+      <CartDrawer
+        isOpen
+        items={[product]}
+        onClose={jest.fn()}
+        onDecrement={jest.fn()}
+        onIncrement={jest.fn()}
+      />
+    );
+
+    expect(screen.getByTestId("quantity")).toHaveTextContent(
+      String(product.quantity)
+    );
+  });
+
+  test("should show the number of products in the whatsapp message if there is more than one.", () => {
+    render(
+      <CartDrawer
+        isOpen
+        items={[product]}
+        onClose={jest.fn()}
+        onDecrement={jest.fn()}
+        onIncrement={jest.fn()}
+      />
+    );
+
+    const link = screen.getByTestId("complete-order");
+
+    expect(link).toHaveAttribute(
+      "href",
+      expect.stringMatching(`(x${String(product.quantity)})`)
+    );
+  });
+
+  test("should not show the number of products in the whatsapp message if it is one.", () => {
+    render(
+      <CartDrawer
+        isOpen
+        items={[{ ...product, quantity: 1 }]}
+        onClose={jest.fn()}
+        onDecrement={jest.fn()}
+        onIncrement={jest.fn()}
+      />
+    );
+
+    const link = screen.getByTestId("complete-order");
+
+    expect(link.getAttribute("href")).not.toMatch(
+      `(x${String(product.quantity)})`
+    );
+  });
+
   test("should call to onDecrement when subtracting a product", () => {
     const onDecrement = jest.fn();
 
     render(
       <CartDrawer
         isOpen
-        items={cart}
+        items={[product]}
         onClose={jest.fn()}
         onDecrement={onDecrement}
         onIncrement={jest.fn()}
@@ -41,7 +92,7 @@ describe("CartDrawer", () => {
     render(
       <CartDrawer
         isOpen
-        items={cart}
+        items={[product]}
         onClose={jest.fn()}
         onDecrement={jest.fn()}
         onIncrement={onIncrement}
@@ -53,7 +104,7 @@ describe("CartDrawer", () => {
     expect(onIncrement).toHaveBeenCalled();
   });
 
-  test("should show a message when the cart is empty", () => {
+  test("should show a message when the product is empty", () => {
     render(
       <CartDrawer
         isOpen
