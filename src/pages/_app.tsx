@@ -43,6 +43,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 borderRadius="lg"
                 height="100%"
                 maxHeight={64}
+                objectFit="cover"
                 src={INFORMATION.banner}
               />
               <Stack
