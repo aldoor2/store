@@ -21,7 +21,7 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
       justifyContent="space-between"
       spacing={3}
     >
-      <Stack direction="row" padding={4} width="100%">
+      <Stack direction="row" padding={2} spacing={4} width="100%">
         <Image
           alt={product.title}
           backgroundColor="white"
