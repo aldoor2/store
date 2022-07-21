@@ -17,6 +17,7 @@ const customConfig = {
     "^@/Pages/(.*)$": "<rootDir>/src/pages/$1",
     "^@/Utils/(.*)$": "<rootDir>/src/utils/$1",
     "^@/Product/(.*)$": "<rootDir>/src/product/$1",
+    "^@/Cart/(.*)$": "<rootDir>/src/cart/$1",
   },
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   setupFilesAfterEnv: ["./jest.setup.ts"],

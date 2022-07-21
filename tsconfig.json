@@ -22,8 +22,9 @@
     "paths": {
       "@/App/*": ["app/*"],
       "@/Pages/*": ["pages/*"],
+      "@/Utils/*": ["utils/*"],
       "@/Product/*": ["product/*"],
-      "@/Utils/*": ["utils/*"]
+      "@/Cart/*": ["cart/*"],
     }
   },
   "include": [

@@ -16,14 +16,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { CartItem, Product } from "@/Product/types";
+import { CartItem } from "@/Cart/types";
 import { parseCurrency } from "@/Utils/currency";
+import { getCartItemPrice, getCartPrice } from "@/Cart/utils";
 import { INFORMATION } from "@/App/constants";
 
 interface Props extends Omit<DrawerProps, "children"> {
   items: CartItem[];
-  onIncrement: (product: Product) => void;
-  onDecrement: (product: Product) => void;
+  onIncrement: (item: CartItem) => void;
+  onDecrement: (item: CartItem) => void;
 }
 
 const CartDrawer: React.FC<Props> = ({
@@ -34,13 +35,7 @@ const CartDrawer: React.FC<Props> = ({
   ...props
 }) => {
   const total = React.useMemo(
-    () =>
-      parseCurrency({
-        price: items.reduce(
-          (total, product) => total + product.price * product.quantity,
-          0
-        ),
-      }),
+    () => parseCurrency(getCartPrice(items)),
     [items]
   );
   const quantity = React.useMemo(
@@ -55,9 +50,7 @@ const CartDrawer: React.FC<Props> = ({
             message.concat(
               `* ${product.title}${
                 product.quantity > 1 ? ` (x${product.quantity})` : ""
-              } - ${parseCurrency({
-                price: product.price * product.quantity,
-              })}\n`
+              } - ${parseCurrency(product.price * product.quantity)}\n`
             ),
           ``
         )
@@ -94,26 +87,26 @@ const CartDrawer: React.FC<Props> = ({
           <DrawerBody data-testid="cart" paddingX={4}>
             {items.length ? (
               <Stack divider={<Divider />} spacing={4}>
-                {items.map((product) => (
-                  <Stack
-                    key={product.id}
-                    data-testid="cart-item"
-                    direction="row"
-                  >
+                {items.map((item) => (
+                  <Stack key={item.id} data-testid="cart-item" direction="row">
                     <Stack width="100%">
                       <Stack
-                        alignItems="center"
+                        alignItems="flex-start"
                         color="primary"
                         direction="row"
                         fontWeight={500}
                         justifyContent="space-between"
                       >
-                        <Text fontSize="lg">{product.title}</Text>
-                        <Text>
-                          {parseCurrency({
-                            price: product.price * product.quantity,
-                          })}
-                        </Text>
+                        <Stack spacing="0">
+                          <Text fontSize="lg">{item.title}</Text>
+                          {Boolean(item.options) &&
+                            Object.entries(item.options).reduce(
+                              (text, [category, option]) =>
+                                text.concat(`${category}:${option[0].title}`),
+                              ""
+                            )}
+                        </Stack>
+                        <Text>{parseCurrency(getCartItemPrice(item))}</Text>
                       </Stack>
                       <Stack direction="row">
                         <Button
@@ -121,21 +114,23 @@ const CartDrawer: React.FC<Props> = ({
                           colorScheme="primary"
                           data-testid="decrement"
                           size="xs"
-                          onClick={() => onDecrement(product)}
+                          onClick={() => onDecrement(item)}
                         >
-                          -
+                          {" "}
+                          -{" "}
                         </Button>
                         <Text data-testid="quantity" fontWeight="500">
-                          {product.quantity}
+                          {item.quantity}
                         </Text>
                         <Button
                           borderRadius={9999}
                           colorScheme="primary"
                           data-testid="increment"
                           size="xs"
-                          onClick={() => onIncrement(product)}
+                          onClick={() => onIncrement(item)}
                         >
-                          +
+                          {" "}
+                          +{" "}
                         </Button>
                       </Stack>
                     </Stack>

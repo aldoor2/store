@@ -1,11 +1,12 @@
 import * as React from "react";
 import { Button, Flex, Grid, Stack, Text } from "@chakra-ui/react";
 
-import { CartItem, Product } from "@/Product/types";
+import { Product } from "@/Product/types";
+import { CartItem } from "@/Cart/types";
 import ProductCard from "@/Product/components/ProductCard";
-import CartDrawer from "@/Product/components/CartDrawer";
-import { editCart } from "@/Product/selectors";
+import CartDrawer from "@/Cart/components/CartDrawer";
 import { parseCurrency } from "@/Utils/currency";
+import { getCartPrice } from "@/Cart/utils";
 
 interface Props {
   products: Product[];
@@ -15,26 +16,43 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
   const [cart, setCart] = React.useState<CartItem[]>([]);
   const [isCartOpen, toggleCart] = React.useState<boolean>(false);
 
-  const total = React.useMemo(
-    () =>
-      parseCurrency({
-        price: cart.reduce(
-          (total, product) => total + product.price * product.quantity,
-          0
-        ),
-      }),
-    [cart]
-  );
+  const total = React.useMemo(() => parseCurrency(getCartPrice(cart)), [cart]);
+
   const quantity = React.useMemo(
     () => cart.reduce((acc, item) => acc + item.quantity, 0),
     [cart]
   );
 
-  function handleEditCart(
-    product: Product,
-    action: "increment" | "decrement"
-  ): void {
-    setCart(editCart(product, action));
+  function handleAddToCart(item: CartItem) {
+    setCart((cart) => [...cart, { ...item, id: String(+new Date()) }]);
+  }
+
+  function handleIncrementCartItem(item: CartItem) {
+    setCart((cart) => {
+      return cart.reduce((acc, _item) => {
+        if (item.id !== _item.id) {
+          return acc.concat(_item);
+        }
+
+        return acc.concat({ ..._item, quantity: _item.quantity + 1 });
+      }, []);
+    });
+  }
+
+  function handleDecrementCartItem(item: CartItem) {
+    setCart((cart) => {
+      return cart.reduce((acc, _item) => {
+        if (item.id !== _item.id) {
+          return acc.concat(_item);
+        }
+
+        if (_item.quantity === 1) {
+          return acc;
+        }
+
+        return acc.concat({ ..._item, quantity: _item.quantity - 1 });
+      }, []);
+    });
   }
 
   return (
@@ -52,7 +70,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               <ProductCard
                 key={product.id}
                 product={product}
-                onAdd={(_product) => handleEditCart(_product, "increment")}
+                onAdd={handleAddToCart}
               />
             ))}
           </Grid>
@@ -105,8 +123,8 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
         isOpen={isCartOpen}
         items={cart}
         onClose={() => toggleCart(false)}
-        onDecrement={(product) => handleEditCart(product, "decrement")}
-        onIncrement={(product) => handleEditCart(product, "increment")}
+        onDecrement={handleDecrementCartItem}
+        onIncrement={handleIncrementCartItem}
       />
     </>
   );

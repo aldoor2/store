@@ -6,7 +6,7 @@ describe("Currency", () => {
       const actual = 65;
       const expected = "$65.00";
 
-      expect(parseCurrency({ price: actual })).toEqual(expected);
+      expect(parseCurrency(actual)).toEqual(expected);
     });
   });
 });
