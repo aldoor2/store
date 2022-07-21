@@ -24,7 +24,13 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
   );
 
   function handleAddToCart(item: CartItem) {
-    setCart((cart) => [...cart, { ...item, id: String(+new Date()) }]);
+    const isInCart = cart.some((_item) => item.id === _item.id);
+
+    if (!isInCart) {
+      return setCart((cart) => [...cart, { ...item }]);
+    }
+
+    handleIncrementCartItem(item);
   }
 
   function handleIncrementCartItem(item: CartItem) {
