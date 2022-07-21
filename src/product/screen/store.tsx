@@ -30,7 +30,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
       return setCart((cart) => [...cart, { ...item }]);
     }
 
-    handleIncrementCartItem(item);
+    toggleCart(true);
   }
 
   function handleIncrementCartItem(item: CartItem) {
