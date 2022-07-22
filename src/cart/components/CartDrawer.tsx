@@ -18,7 +18,12 @@ import {
 
 import { CartItem } from "@/Cart/types";
 import { parseCurrency } from "@/Utils/currency";
-import { getCartItemPrice, getCartPrice } from "@/Cart/utils";
+import {
+  getCartItemOptionsSummary,
+  getCartItemPrice,
+  getCartMessage,
+  getCartTotal,
+} from "@/Cart/utils";
 import { INFORMATION } from "@/App/constants";
 
 interface Props extends Omit<DrawerProps, "children"> {
@@ -35,28 +40,14 @@ const CartDrawer: React.FC<Props> = ({
   ...props
 }) => {
   const total = React.useMemo(
-    () => parseCurrency(getCartPrice(items)),
+    () => parseCurrency(getCartTotal(items)),
     [items]
   );
   const quantity = React.useMemo(
     () => items.reduce((acc, item) => acc + item.quantity, 0),
     [items]
   );
-  const text = React.useMemo(
-    () =>
-      items
-        .reduce(
-          (message, product) =>
-            message.concat(
-              `* ${product.title}${
-                product.quantity > 1 ? ` (x${product.quantity})` : ""
-              } - ${parseCurrency(product.price * product.quantity)}\n`
-            ),
-          ``
-        )
-        .concat(`\nTotal: ${total}`),
-    [items, total]
-  );
+  const text = React.useMemo(() => getCartMessage(items), [items]);
 
   React.useEffect(() => {
     if (!items.length) onClose();
@@ -92,21 +83,22 @@ const CartDrawer: React.FC<Props> = ({
                     <Stack width="100%">
                       <Stack
                         alignItems="flex-start"
-                        color="primary"
                         direction="row"
-                        fontWeight={500}
                         justifyContent="space-between"
                       >
                         <Stack spacing="0">
-                          <Text fontSize="lg">{item.title}</Text>
-                          {Boolean(item.options) &&
-                            Object.entries(item.options).reduce(
-                              (text, [category, option]) =>
-                                text.concat(`${category}:${option[0].title}`),
-                              ""
-                            )}
+                          <Text fontSize="lg" fontWeight="500">
+                            {item.title}
+                          </Text>
+                          {Boolean(item.options) && (
+                            <Text fontWeight="500">
+                              {getCartItemOptionsSummary(item.options)}
+                            </Text>
+                          )}
                         </Stack>
-                        <Text>{parseCurrency(getCartItemPrice(item))}</Text>
+                        <Text fontWeight="500">
+                          {parseCurrency(getCartItemPrice(item))}
+                        </Text>
                       </Stack>
                       <Stack direction="row">
                         <Button

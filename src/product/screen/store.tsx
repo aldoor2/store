@@ -6,7 +6,7 @@ import { CartItem } from "@/Cart/types";
 import ProductCard from "@/Product/components/ProductCard";
 import CartDrawer from "@/Cart/components/CartDrawer";
 import { parseCurrency } from "@/Utils/currency";
-import { getCartPrice } from "@/Cart/utils";
+import { getCartTotal } from "@/Cart/utils";
 
 interface Props {
   products: Product[];
@@ -16,7 +16,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
   const [cart, setCart] = React.useState<CartItem[]>([]);
   const [isCartOpen, toggleCart] = React.useState<boolean>(false);
 
-  const total = React.useMemo(() => parseCurrency(getCartPrice(cart)), [cart]);
+  const total = React.useMemo(() => parseCurrency(getCartTotal(cart)), [cart]);
 
   const quantity = React.useMemo(
     () => cart.reduce((acc, item) => acc + item.quantity, 0),

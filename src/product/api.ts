@@ -25,7 +25,14 @@ class Product implements IProduct {
   }
 
   set(product: RawProduct) {
-    Object.assign(this, product);
+    Object.assign(this, {
+      id: product.id,
+      title: product.title,
+      category: product.category,
+      description: product.description,
+      image: product.image,
+      price: product.price,
+    });
   }
 
   addOption(option: RawOption) {
@@ -33,7 +40,14 @@ class Product implements IProduct {
       this.options[option.category] = [];
     }
 
-    this.options[option.category].push(option);
+    this.options[option.category].push({
+      id: option.id,
+      title: option.title,
+      category: option.category,
+      description: option.description,
+      image: option.image,
+      price: option.price,
+    });
   }
 
   toJSON(): IProduct {
