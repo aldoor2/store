@@ -15,7 +15,32 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 
 import theme from "../theme";
-import { INFORMATION } from "../app/constants";
+
+export const INFORMATION = {
+  avatar: "/assets/avatar.jpg",
+  banner: "/assets/banner.jpg",
+  title: "URBN Catering",
+  description: "Galardonada pizza estilo New Haven en Palermo SOHO.",
+  phone: "5491141414141",
+  social: [
+    {
+      name: "instagram",
+      url: "https://instagram.com/goncy.js",
+    },
+    {
+      name: "whatsapp",
+      url: "https://wa.me/5491141414141",
+    },
+    {
+      name: "facebook",
+      url: "",
+    },
+    {
+      name: "twitter",
+      url: "",
+    },
+  ],
+};
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (

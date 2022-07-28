@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 
-import CartDrawer from "@/Cart/components/CartDrawer";
+import CartDrawer from "@/Cart/components/CartDrawer/CartDrawer";
 import { CartItem } from "@/Cart/types";
 
 const product: CartItem = {

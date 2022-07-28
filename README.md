@@ -1,12 +1,20 @@
-# Almacency
-Tienda online administrada via Google Sheet
+# Commercency
+Ecommerce, simple
 
 ## Como la uso?
-1. Crea una copia de [esta planilla de calculo](https://docs.google.com/spreadsheets/d/e/2PACX-1vQyKHkHlToliTiCgMJNa-5iE-eW-PVeD127sY6y6UOH5kIr4A_ah2IzlAOt2dC0tn-VduVoJVKcgcWo/pub?output=csv).
+1. Crea una copia de [esta planilla de calculo](https://docs.google.com/spreadsheets/d/114Jx1sSugz0_Z4Vk65O0UDa1Drmn3d7IVeqG5yJ6JH8/edit?usp=sharing).
 2. Una vez copiada, toca en `Archivo > Publicar en la web`, selecciona `Valores separados por comas (.csv)` del desplegable y clickea en `publicar`.
 3. Asegurate que en vez de `Pagina web` diga `Valores separados por comas (.csv)` y copia el enlace.
 4. Pega el enlace en [este archivo](./app/constants.ts) y completa los datos de tu tienda.
 5. Publica el sitio en [algun hosting que soporte NextJS](https://vercel.com)
 
-## ¿Qué puedo hacer con este repositorio?
-Podés leer la licencia [acá](./LICENSE.md). En resumen, podés usar repositorio para lo que quieras mientras no lucres con eso y menciones la fuente original cuando lo uses 🥰.
+# TODO
+* Revisar si deberia traer los fields como un Record<string, string> o como un array.
+* Revisar si CartDrawer deberia ser un solo componente o dividirlo mas
+* Si no tengo fields, el componente de Details debería mostrarme el botón de completar pedido
+* Datos de tienda vía hoja de sheet
+* Búsqueda
+* Secciones por categoría
+
+* Verificar en el componente Details el valor de la propiedad key={id.toString()} para que sea unico
+* Verificar cuando se agrega un producto con 'options' al carrito.
