@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  PRODUCTS_CSV: https://docs.google.com/spreadsheets/d/e/2PACX-1vQyKHkHlToliTiCgMJNa-5iE-eW-PVeD127sY6y6UOH5kIr4A_ah2IzlAOt2dC0tn-VduVoJVKcgcWo/pub?gid=0&single=true&output=csv
+  FIELDS_CSV: https://docs.google.com/spreadsheets/d/e/2PACX-1vQyKHkHlToliTiCgMJNa-5iE-eW-PVeD127sY6y6UOH5kIr4A_ah2IzlAOt2dC0tn-VduVoJVKcgcWo/pub?gid=1947094682&single=true&output=csv
+  REVALIDATE_SECRET: secret
+
 jobs:
   build:
 
