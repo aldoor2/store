@@ -1,8 +1,8 @@
-import { extendTheme, theme } from "@chakra-ui/react";
+import { extendTheme, theme as baseTheme } from "@chakra-ui/react";
 
 export default extendTheme({
   colors: {
-    primary: theme.colors[process.env.NEXT_PUBLIC_COLOR || "teal"],
+    primary: baseTheme.colors[process.env.NEXT_PUBLIC_COLOR || "teal"],
   },
   components: {
     Radio: {

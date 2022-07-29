@@ -16,5 +16,4 @@ Ecommerce, simple
 * Búsqueda
 * Secciones por categoría
 
-* Verificar en el componente Details el valor de la propiedad key={id.toString()} para que sea unico
 * Verificar cuando se agrega un producto con 'options' al carrito.

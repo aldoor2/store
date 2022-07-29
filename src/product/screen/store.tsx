@@ -37,8 +37,12 @@ const StoreScreen: React.FC<Props> = ({ products, fields }) => {
                     (item) => product.id === item.id
                   );
 
-                  if (!isInCart)
-                    return addItem(Symbol(), { ...product, quantity: 1 });
+                  if (!isInCart) {
+                    return addItem(Symbol(product.title), {
+                      ...product,
+                      quantity: 1,
+                    });
+                  }
 
                   toggleCart(true);
                 }}
