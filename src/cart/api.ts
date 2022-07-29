@@ -18,7 +18,7 @@ function normalize(data: RawField[]): IField[] {
         title: field.title,
         options: field.text.split(",").map((option) => option.trim()),
         required: field.required,
-        note: field.note,
+        note: field.note || "",
         type: "radio",
       } as RadioField;
     } else if (field.type === "text") {
@@ -26,7 +26,7 @@ function normalize(data: RawField[]): IField[] {
         title: field.title,
         placeholder: field.text,
         required: field.required,
-        note: field.note,
+        note: field.note || "",
         type: "text",
       } as TextField;
     }
@@ -47,15 +47,7 @@ const cartApi = {
             Papa.parse(response.data, {
               header: true,
               complete: (results) => {
-                const data = normalize(results.data as RawField[]).map(
-                  (field) => {
-                    if (field.note === undefined) {
-                      delete field.note;
-                    }
-
-                    return field;
-                  }
-                );
+                const data = normalize(results.data as RawField[]);
 
                 return resolve(data);
               },

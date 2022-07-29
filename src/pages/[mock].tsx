@@ -22,7 +22,7 @@ interface Params extends ParsedUrlQuery {
 const IndexPage: React.FC<Props> = ({ products, fields }) => {
   return (
     <CartProvider fields={fields}>
-      <StoreScreen products={products} />
+      <StoreScreen fields={fields} products={products} />
     </CartProvider>
   );
 };
@@ -34,7 +34,6 @@ export const getStaticProps: GetStaticProps<unknown, Params> = async ({
   const fields = await cartApi.mock.list(params.mock);
 
   return {
-    revalidate: 10,
     props: {
       products,
       fields,
