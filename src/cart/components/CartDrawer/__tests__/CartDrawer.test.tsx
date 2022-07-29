@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import { jest } from "@jest/globals";
 
 import CartDrawer from "@/Cart/components/CartDrawer/CartDrawer";
 import { CartItem } from "@/Cart/types";
+import * as cartContext from "@/Cart/context";
 
-const product: CartItem = {
+jest.mock("@/Cart/context");
+
+const cartItem: CartItem = {
   id: "id",
   image: "image",
   price: 100,
@@ -15,30 +20,45 @@ const product: CartItem = {
 };
 
 describe("CartDrawer", () => {
-  test("should show the quantity of products of an item", () => {
-    render(
-      <CartDrawer
-        isOpen
-        items={[product]}
-        onClose={jest.fn()}
-        onDecrement={jest.fn()}
-        onIncrement={jest.fn()}
-      />
-    );
+  test("should show the quantity of products in an item in the detail", () => {
+    const cart = new Map<CartItem["id"], CartItem>([[cartItem.id, cartItem]]);
+
+    jest
+      .spyOn<any, any>(cartContext, "useCart")
+      .mockReturnValue([{ cart }, {}]);
+
+    render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
 
     expect(screen.getByTestId("quantity")).toHaveTextContent(
-      String(product.quantity)
+      String(cartItem.quantity)
     );
   });
 
+  test("should show the quantity of products in the detail", () => {
+    const cart = new Map<CartItem["id"], CartItem>([[cartItem.id, cartItem]]);
+
+    jest
+      .spyOn<any, any>(cartContext, "useCart")
+      .mockReturnValue([{ cart }, {}]);
+
+    render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
+
+    const item = screen.getByTestId(`cart-item-${cartItem.id}`);
+    const quantityElement = within(item).getByTestId("quantity");
+    const quantity = within(quantityElement).getByText(
+      String(cartItem.quantity)
+    );
+
+    expect(quantity).toBeInTheDocument();
+  });
+
+  /*
   test("should show the number of products in the whatsapp message if there is more than one.", () => {
     render(
       <CartDrawer
         isOpen
-        items={[product]}
+        fields={[]}
         onClose={jest.fn()}
-        onDecrement={jest.fn()}
-        onIncrement={jest.fn()}
       />
     );
 
@@ -46,7 +66,7 @@ describe("CartDrawer", () => {
 
     expect(link).toHaveAttribute(
       "href",
-      expect.stringMatching(`(x${String(product.quantity)})`)
+      expect.stringMatching(`(x${String(cartItem.quantity)})`)
     );
   });
 
@@ -54,17 +74,15 @@ describe("CartDrawer", () => {
     render(
       <CartDrawer
         isOpen
-        items={[{ ...product, quantity: 1 }]}
+        items={[{ ...cartItem, quantity: 1 }]}
         onClose={jest.fn()}
-        onDecrement={jest.fn()}
-        onIncrement={jest.fn()}
       />
     );
 
     const link = screen.getByTestId("complete-order");
 
     expect(link.getAttribute("href")).not.toMatch(
-      `(x${String(product.quantity)})`
+      `(x${String(cartItem.quantity)})`
     );
   });
 
@@ -74,10 +92,8 @@ describe("CartDrawer", () => {
     render(
       <CartDrawer
         isOpen
-        items={[product]}
+        fields={[]}
         onClose={jest.fn()}
-        onDecrement={onDecrement}
-        onIncrement={jest.fn()}
       />
     );
 
@@ -92,9 +108,9 @@ describe("CartDrawer", () => {
     render(
       <CartDrawer
         isOpen
-        items={[product]}
+        fields={[]}
         onClose={jest.fn()}
-        onDecrement={jest.fn()}
+
         onIncrement={onIncrement}
       />
     );
@@ -110,13 +126,13 @@ describe("CartDrawer", () => {
         isOpen
         items={[]}
         onClose={jest.fn()}
-        onDecrement={jest.fn()}
-        onIncrement={jest.fn()}
+
+
       />
     );
 
     expect(
       screen.getByText("No hay elementos en tu carrito")
     ).toBeInTheDocument();
-  });
+  }); */
 });
