@@ -52,87 +52,58 @@ describe("CartDrawer", () => {
     expect(quantity).toBeInTheDocument();
   });
 
-  /*
-  test("should show the number of products in the whatsapp message if there is more than one.", () => {
-    render(
-      <CartDrawer
-        isOpen
-        fields={[]}
-        onClose={jest.fn()}
-      />
-    );
+  // test("should show the number of products in the whatsapp message if there is more than one.", () => {
+  //   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
 
-    const link = screen.getByTestId("complete-order");
+  //   const link = screen.getByTestId("complete-order");
 
-    expect(link).toHaveAttribute(
-      "href",
-      expect.stringMatching(`(x${String(cartItem.quantity)})`)
-    );
-  });
+  //   expect(link).toHaveAttribute(
+  //     "href",
+  //     expect.stringMatching(`(x${String(cartItem.quantity)})`)
+  //   );
+  // });
 
-  test("should not show the number of products in the whatsapp message if it is one.", () => {
-    render(
-      <CartDrawer
-        isOpen
-        items={[{ ...cartItem, quantity: 1 }]}
-        onClose={jest.fn()}
-      />
-    );
+  // test("should not show the number of products in the whatsapp message if it is one.", () => {
+  //   render(
+  //     <CartDrawer
+  //       isOpen
+  //       fields={[{ ...cartItem, quantity: 1 }]}
+  //       onClose={jest.fn()}
+  //     />
+  //   );
 
-    const link = screen.getByTestId("complete-order");
+  //   const link = screen.getByTestId("complete-order");
 
-    expect(link.getAttribute("href")).not.toMatch(
-      `(x${String(cartItem.quantity)})`
-    );
-  });
+  //   expect(link.getAttribute("href")).not.toMatch(
+  //     `(x${String(cartItem.quantity)})`
+  //   );
+  // });
 
-  test("should call to onDecrement when subtracting a product", () => {
-    const onDecrement = jest.fn();
+  // test("should call to onDecrement when subtracting a product", () => {
+  //   const onDecrement = jest.fn();
 
-    render(
-      <CartDrawer
-        isOpen
-        fields={[]}
-        onClose={jest.fn()}
-      />
-    );
+  //   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
 
-    fireEvent.click(screen.getByTestId("decrement"));
+  //   fireEvent.click(screen.getByTestId("decrement"));
 
-    expect(onDecrement).toHaveBeenCalled();
-  });
+  //   expect(onDecrement).toHaveBeenCalled();
+  // });
 
-  test("should call to onIncrement when you increase a product", () => {
-    const onIncrement = jest.fn();
+  // test("should call to onIncrement when you increase a product", () => {
+  //   const onIncrement = jest.fn();
 
-    render(
-      <CartDrawer
-        isOpen
-        fields={[]}
-        onClose={jest.fn()}
+  //   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
 
-        onIncrement={onIncrement}
-      />
-    );
+  //   fireEvent.click(screen.getByTestId("increment"));
 
-    fireEvent.click(screen.getByTestId("increment"));
+  //   expect(onIncrement).toHaveBeenCalled();
+  // });
 
-    expect(onIncrement).toHaveBeenCalled();
-  });
+  // test("should show a message when the product is empty", () => {
+  //   render(<CartDrawer isOpen fields={[]} onClose={jest.fn()} />);
 
-  test("should show a message when the product is empty", () => {
-    render(
-      <CartDrawer
-        isOpen
-        items={[]}
-        onClose={jest.fn()}
-
-
-      />
-    );
-
-    expect(
-      screen.getByText("No hay elementos en tu carrito")
-    ).toBeInTheDocument();
-  }); */
+  //   expect(
+  //     screen.getByText("No hay elementos en tu carrito")
+  //   ).toBeInTheDocument();
+  // });
 });
