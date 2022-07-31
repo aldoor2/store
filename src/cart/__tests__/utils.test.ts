@@ -1,4 +1,5 @@
-import { CartItem, Field } from "@/Cart/types";
+import { CartItem } from "@/Cart/types";
+import type { Field } from "@/Cart/types";
 import {
   getCartItemOptionsSummary,
   getCartItemPrice,
