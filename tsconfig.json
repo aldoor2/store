@@ -29,8 +29,8 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "./jest.setup.ts",
   ],
   "exclude": [
