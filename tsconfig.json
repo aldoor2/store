@@ -18,13 +18,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@/App/*": ["app/*"],
-      "@/Pages/*": ["pages/*"],
-      "@/Utils/*": ["utils/*"],
-      "@/Product/*": ["product/*"],
-      "@/Cart/*": ["cart/*"],
+      "@/Pages/*": ["src/pages/*"],
+      "@/Utils/*": ["src/utils/*"],
+      "@/Product/*": ["src/product/*"],
+      "@/Cart/*": ["src/cart/*"],
     }
   },
   "include": [

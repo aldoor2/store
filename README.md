@@ -15,5 +15,3 @@ Ecommerce, simple
 * Datos de tienda vía hoja de sheet
 * Búsqueda
 * Secciones por categoría
-
-* Verificar cuando se agrega un producto con 'options' al carrito.

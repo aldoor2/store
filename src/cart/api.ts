@@ -17,7 +17,8 @@ function normalize(data: RawField[]): IField[] {
       return {
         title: field.title,
         options: field.text.split(",").map((option) => option.trim()),
-        required: field.required,
+        required:
+          String(field.required).toLowerCase() === "true" ? true : false,
         note: field.note || "",
         type: "radio",
       } as RadioField;
@@ -25,7 +26,8 @@ function normalize(data: RawField[]): IField[] {
       return {
         title: field.title,
         placeholder: field.text,
-        required: field.required,
+        required:
+          String(field.required).toLowerCase() === "true" ? true : false,
         note: field.note || "",
         type: "text",
       } as TextField;

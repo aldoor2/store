@@ -15,7 +15,13 @@ const Details: React.FC<Props> = ({ cart, onChange }) => {
     <Stack divider={<Divider />} spacing={4}>
       {Array.from(cart.entries()).map(([id, item]) => (
         <Stack
-          key={id.toString()}
+          key={
+            item.options
+              ? `${id.toString()} con ${getCartItemOptionsSummary(
+                  item.options
+                )}`
+              : id.toString()
+          }
           data-testid={`cart-item-${item.id}`}
           direction="row"
         >

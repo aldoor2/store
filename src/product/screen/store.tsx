@@ -16,6 +16,44 @@ const StoreScreen: React.FC<Props> = ({ products, fields }) => {
   const [{ total, quantity, cart }, { addItem }] = useCart();
   const [isCartOpen, toggleCart] = React.useState<boolean>(false);
 
+  function handleAddToCart(product: Product): void {
+    // Comprueba si ya existe el product.id agregado dentro del carrito
+    const isInCart = Array.from(cart.values()).some(
+      (item) => product.id === item.id
+    );
+
+    if (product.options) {
+      const optionOfProduct = Object.entries(product.options).map(
+        ([_title, options], index) => options[index].title
+      );
+
+      const isItemWithOptionsInCart = Array.from(cart.values()).some((item) =>
+        Object.entries(item.options).some(([_title, options]) =>
+          options[0].title.includes(optionOfProduct[0])
+        )
+      );
+
+      if ((!isInCart && product.options) || !isItemWithOptionsInCart) {
+        return addItem(Symbol(product.title), {
+          ...product,
+          quantity: 1,
+        });
+      } else {
+        return toggleCart(true);
+      }
+    }
+
+    // Si no se encuentra el producto en el carrito, lo agregamos al mismo
+    if (!isInCart) {
+      return addItem(Symbol(product.title), {
+        ...product,
+        quantity: 1,
+      });
+    }
+
+    toggleCart(true);
+  }
+
   return (
     <>
       <Stack spacing={6}>
@@ -31,21 +69,7 @@ const StoreScreen: React.FC<Props> = ({ products, fields }) => {
               <ProductCard
                 key={product.id}
                 product={product}
-                onAdd={(product: Product) => {
-                  // Comprueba si ya existe el product.id agregado dentro del carrito
-                  const isInCart = Array.from(cart.values()).some(
-                    (item) => product.id === item.id
-                  );
-
-                  if (!isInCart) {
-                    return addItem(Symbol(product.title), {
-                      ...product,
-                      quantity: 1,
-                    });
-                  }
-
-                  toggleCart(true);
-                }}
+                onAdd={(product: Product) => handleAddToCart(product)}
               />
             ))}
           </Grid>
